@@ -21,7 +21,7 @@ import json
 
 ########################  LOAD DATA FROM JSON FILE  ########################
 
-with open('data.json') as json_file:
+with open('recipeList.json') as json_file:
     data = json.load(json_file)
 
 recipes = data['recipes']
