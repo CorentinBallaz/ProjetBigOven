@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+  	<ion-buttons slot="start">
+      <ion-button routerLink="/"><ion-icon slot="icon-only" name="arrow-round-back"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/"><ion-icon slot="icon-only" name="md-heart"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Titre Recette</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+	<ion-img style="max-width: 40%; height: auto; margin:auto;" [src]="myImage"></ion-img>
+
+
+<ion-list >
+    <ion-item-sliding #item>
+      <ion-item>
+        Ingrédient 1 
+      </ion-item>
+      <ion-item-options side="start">
+        <ion-button color="light">Done</ion-button>
+      </ion-item-options>
+      <ion-item>
+        Ingrédient 2
+      </ion-item>
+      <ion-item>
+        Ingrédient 3
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+
+
+</ion-content>
+
+
+
+<ion-footer translucent="true">
+  <ion-toolbar>
+    <ion-button expand="block">Ajouter au panier</ion-button>
+  </ion-toolbar>
+</ion-footer>
