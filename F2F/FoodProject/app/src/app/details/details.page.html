@@ -6,11 +6,11 @@
     <ion-buttons slot="end">
       <ion-button routerLink="/"><ion-icon slot="icon-only" name="md-heart"></ion-icon></ion-button>
     </ion-buttons>
-    <ion-title>Titre Recette</ion-title>
+    <ion-title>{{recipe.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<!-- <ion-content>
 
 	<ion-img style="max-width: 40%; height: auto; margin:auto;" [src]="myImage"></ion-img>
 
@@ -34,9 +34,17 @@
   </ion-list>
 
 
+</ion-content> -->
+
+<ion-content>
+  <ion-img style="max-width: 40%; height: auto; margin:auto;" [src]="myImage"></ion-img>
+  <ion-list *ngFor="let ingredient of recipe.ingredients">
+      <ion-item>
+        {{ingredient}}
+        <ion-checkbox slot="start"></ion-checkbox>
+      </ion-item>
+  </ion-list>
 </ion-content>
-
-
 
 <ion-footer translucent="true">
   <ion-toolbar>
