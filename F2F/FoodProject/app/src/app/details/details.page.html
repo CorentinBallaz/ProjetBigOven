@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+  	<ion-buttons slot="start">
+      <ion-button routerLink="/"><ion-icon slot="icon-only" name="arrow-round-back"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/"><ion-icon slot="icon-only" name="md-heart"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>{{recipe.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-img style="max-width: 40%; height: auto; margin:auto;" [src]="myImage"></ion-img>
+  <ion-list>
+    <ion-item>
+      <ion-label><strong>Tout sélectionner</strong></ion-label>
+      <ion-checkbox slot="start" 
+      [(ngModel)]="masterCheck"
+      [indeterminate]="isIndeterminate"
+      (click)="checkMaster($event)"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item *ngFor="let ingredient of ingredients">
+      <ion-label>{{ingredient.name}}</ion-label>
+      <ion-checkbox slot="start" 
+      [(ngModel)]="ingredient.isChecked" 
+      (ionChange)="checkEvent()"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer translucent="true">
+  <ion-toolbar>
+    <ion-button expand="block" (click)="addToCart()">Ajouter au panier</ion-button>
+  </ion-toolbar>
+</ion-footer>
