@@ -10,39 +10,24 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- <ion-content>
-
-	<ion-img style="max-width: 40%; height: auto; margin:auto;" [src]="myImage"></ion-img>
-
-
-<ion-list >
-    <ion-item-sliding #item>
-      <ion-item>
-            <ion-label>Jon Snow</ion-label>
-            <ion-checkbox color="primary" slot="start"></ion-checkbox>
-          </ion-item>
-      <ion-item-options side="start">
-        <ion-button color="light">Done</ion-button>
-      </ion-item-options>
-      <ion-item>
-        Ingrédient 2
-      </ion-item>
-      <ion-item>
-        Ingrédient 3
-      </ion-item>
-    </ion-item-sliding>
-  </ion-list>
-
-
-</ion-content> -->
-
 <ion-content>
   <ion-img style="max-width: 40%; height: auto; margin:auto;" [src]="myImage"></ion-img>
-  <ion-list *ngFor="let ingredient of recipe.ingredients">
-      <ion-item>
-        {{ingredient}}
-        <ion-checkbox slot="start"></ion-checkbox>
-      </ion-item>
+  <ion-list>
+    <ion-item>
+      <ion-label><strong>Tout sélectionner</strong></ion-label>
+      <ion-checkbox slot="start" 
+      [(ngModel)]="masterCheck"
+      [indeterminate]="isIndeterminate"
+      (click)="checkMaster($event)"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item *ngFor="let ingredient of ingredients">
+      <ion-label>{{ingredient.name}}</ion-label>
+      <ion-checkbox slot="start" 
+      [(ngModel)]="ingredient.isChecked" 
+      (ionChange)="checkEvent()"></ion-checkbox>
+    </ion-item>
   </ion-list>
 </ion-content>
 
