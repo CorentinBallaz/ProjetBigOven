@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser= require('body-parser');
-const APIRoutes = require('./api/MyApi/routes');
-
+const MyAPIRoutes = require('./api/MyApi/routes');
+const F2FAPIRoutes = require('./api/F2Fapi/routes');
 // const TODORoutes = require('./todo/routes');
 // const path = require('path');
 // let dirViews = [path.join(__dirname,'/todo/views')];
@@ -14,8 +14,11 @@ app.use(bodyParser.urlencoded({
     extended : true
 }));
 app.use(bodyParser.json());
-app.use(APIRoutes);
-// app.use(TODORoutes);
+app.use(MyAPIRoutes);
+app.use(F2FAPIRoutes);
+
+
+
 //-------- DB -----------------
 
 const mongoose = require('mongoose');
@@ -25,17 +28,6 @@ mongoose.connect(database,(err)=>{
         throw err;
     console.log('conneced to the database')
 });
-
-
-
-
-
-
-//
-// app.get('/',(req,res)=>{
-//     res.send('Express response');
-// // });
-
 
 
 app.listen(3000);
