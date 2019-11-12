@@ -1,25 +1,25 @@
 const express = require('express');
 const app = express();
 const bodyParser= require('body-parser');
-const APIRoutes = require('./api/MyApi/routes/');
+const APIRoutes = require('./api/MyApi/routes');
 
-const TODORoutes = require('./todo/routes');
-const path = require('path');
-let dirViews = [path.join(__dirname,'/todo/views')];
+// const TODORoutes = require('./todo/routes');
+// const path = require('path');
+// let dirViews = [path.join(__dirname,'/todo/views')];
 
 
-app.set('views',dirViews);
-app.set('view engine','ejs');
+// app.set('views',dirViews);
+// app.set('view engine','ejs');
 app.use(bodyParser.urlencoded({
     extended : true
 }));
 app.use(bodyParser.json());
 app.use(APIRoutes);
-app.use(TODORoutes);
+// app.use(TODORoutes);
 //-------- DB -----------------
 
 const mongoose = require('mongoose');
-database = 'mongodb://localhost:27017/todo';
+database = 'mongodb://localhost:27017/food2forkDataBase';
 mongoose.connect(database,(err)=>{
     if(err)
         throw err;
@@ -31,10 +31,10 @@ mongoose.connect(database,(err)=>{
 
 
 
-
+//
 // app.get('/',(req,res)=>{
 //     res.send('Express response');
-// });
+// // });
 
 
 
