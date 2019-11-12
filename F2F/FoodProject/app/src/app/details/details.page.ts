@@ -83,6 +83,14 @@ async getRecipe(id:any) {
     }
   }
 
+  addToCart() {
+    this.ingredients.forEach((item) => {
+      if (item.isChecked == true) {
+        console.log(item.name);
+      }
+    });
+  }
+
   ngOnInit() {
     this.recipe={};
     this.id="5dadab6aa9ba868a58f72346";
