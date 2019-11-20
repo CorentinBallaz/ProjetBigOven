@@ -28,11 +28,12 @@ async getAllRecipes() {
     });
     await loading.present();
 
-    await this.api.getAllRecipes().subscribe(res => {
-    console.log(res);
+    await this.api.getRecipes().subscribe(res => {
+    console.log(res[0]);
     this.recipeNames = [];
-    for (var j = 0; j < this.res.length; j++) {
-    	var currentRecipeName = this.res[k].recipe.publisher;
+    for (var j = 0; j < res.length; j++) {
+    	var currentRecipeName = res[j].recipe.title;
+    	console.log(currentRecipeName);
     	var currentJsonRecipeName = {name:currentRecipeName,isChecked:false};
     	this.recipeNames.push(currentJsonRecipeName);
     }
