@@ -1,3 +1,14 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu contentId="content1" side="start">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+<ion-content>
+      <p class="ion-padding-start ion-padding-end"><ion-button onclick='/'  [routerLink]="['/home']" expand="block" fill="outline"> Mon compte</ion-button>
+      <ion-button onclick='/' [routerLink]="['/home']" expand="block" fill="outline"> Mon panier</ion-button></p>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="content1" main></ion-router-outlet>
 </ion-app>

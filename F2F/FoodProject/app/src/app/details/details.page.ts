@@ -85,7 +85,7 @@ async getRecipe(id:any) {
 
   ngOnInit() {
     this.recipe={};
-    this.id="5dcacd0622ce3fb7a211dee5";
+    this.id="5dadaf26eb9ebc8e7532ca03";
     this.getRecipe(this.id);
   }
 
