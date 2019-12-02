@@ -63,4 +63,14 @@ export class RestService {
       catchError(this.handleError));
   }
 
+  getCart(): Observable<any> {
+
+    const apiUrl = "http://localhost:3000/MyApi/cart/";
+
+    return this.http.get(apiUrl, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+
+  }
+
 }
