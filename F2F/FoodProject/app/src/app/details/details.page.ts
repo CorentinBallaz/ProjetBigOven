@@ -31,7 +31,6 @@ async getRecipe(id:any) {
     const loading = await this.loadingController.create({
       message: 'Loading'
     });
-
     await loading.present();
 
     await this.api.getRecipe(this.id)
@@ -93,7 +92,9 @@ async getRecipe(id:any) {
 
   ngOnInit() {
     this.recipe={};
-    this.id="5dadab6aa9ba868a58f72346";
+    this.route.paramMap.subscribe((params : ParamMap)=> {
+      this.id=params.get('id');
+    });
     this.getRecipe(this.id);
   }
 
