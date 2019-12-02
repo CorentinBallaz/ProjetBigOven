@@ -189,6 +189,31 @@ function getRecipe(req,res){
     });
 }
 
+function addIngredient(req, res) {
+  const Cart = require('../models');
+
+  const newIngredient = Cart ({
+      ingredient: req.body.name
+  });
+
+  newIngredient.save(function(err) {
+    if (err) throw err;
+    res.json({info: 'Success'});
+
+  });
+
+}
+
+function getCartList(req,res){
+    const Cart = require('../models');
+    Cart.find({},function(err,cart) {
+        if (err) throw err;
+        res.json(cart);
+    });
+}
+
 
 module.exports.getAllRecipes=getAllRecipes;
 module.exports.getRecipe = getRecipe;
+module.exports.addIngredient=addIngredient;
+module.exports.getCartList=getCartList;
