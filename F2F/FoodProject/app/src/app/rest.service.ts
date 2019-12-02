@@ -38,7 +38,7 @@ export class RestService {
 
   getRecipes(): Observable<any> {
 
-    const apiUrl = "http://localhost:3000/MyApi/recipes/";
+    const apiUrl = 'http://localhost:3000/MyApi/recipes/';
 
     return this.http.get(apiUrl, httpOptions).pipe(
       map(this.extractData),
@@ -46,7 +46,7 @@ export class RestService {
 
   }
 
-  getRecipe(id:any): Observable<any> {
+  getRecipe(id: any): Observable<any> {
 
     const apiUrl = "http://localhost:3000/MyApi/recipe/" + id;
 

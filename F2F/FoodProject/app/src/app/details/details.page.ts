@@ -93,7 +93,10 @@ async getRecipe(id:any) {
 
   ngOnInit() {
     this.recipe={};
-    this.id="5dadab6aa9ba868a58f72346";
+    this.route.paramMap.subscribe((params : ParamMap)=>{
+      this.id = params.get('id');
+    });
+    // this.id="5dadaf26eb9ebc8e7532ca03";
     this.getRecipe(this.id);
   }
 
