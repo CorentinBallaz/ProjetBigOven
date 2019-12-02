@@ -18,5 +18,11 @@ router.post('/MyApi/cart/',(req,res)=>{
 router.get('/MyApi/cart/',(req,res)=>{
 	controller.getCartList(req,res);
 });
+router.post('/MyApi/favoriRecipes/',(req,res)=>{
+	controller.addFavoriRecipe(req,res);
+});
+router.get('/MyApi/favoriRecipes/',(req,res)=>{
+	controller.getFavoriRecipes(req,res);
+});
 
 module.exports=router;

@@ -45,7 +45,33 @@ function getCartList(req,res){
 }
 
 
+function addFavoriRecipe(req, res) {
+  const favoriRecipe = require('../models/favoriRecipes');
+
+  const newFavoriRecipe = FavoriRecipe ({
+      recipe : req.body
+  });
+
+  newFavoriRecipe.save(function(err) {
+    if (err) throw err;
+    res.json({info: 'Success'});
+
+  });
+
+}
+
+function getFavoriRecipes(req,res){
+    const FavoriRecipe = require('../models/favoriRecipes');
+    FavoriRecipe.find({},function(err,favoriRecipes) {
+        if (err) throw err;
+        res.json(favoriRecipes);
+    });
+}
+
+
 module.exports.getAllRecipes=getAllRecipes;
 module.exports.getRecipe = getRecipe;
 module.exports.addIngredient=addIngredient;
 module.exports.getCartList=getCartList;
+module.exports.getFavoriRecipes=getFavoriRecipes;
+module.exports.addFavoriRecipe=addFavoriRecipe;
