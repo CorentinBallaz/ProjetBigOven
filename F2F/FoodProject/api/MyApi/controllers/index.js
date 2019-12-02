@@ -48,7 +48,7 @@ function addFavoriRecipe(req, res) {
   const favoriRecipe = require('../models/favoriRecipes');
 
   const newFavoriRecipe = FavoriRecipe ({
-      recipe : req.body
+      recipe : req.body.recipe
   });
 
   newFavoriRecipe.save(function(err) {

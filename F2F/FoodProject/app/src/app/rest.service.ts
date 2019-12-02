@@ -56,4 +56,11 @@ export class RestService {
 
   }
 
+   addFavoriRecipe(recipe: any): Observable<any> {
+    const apiUrl = "http://localhost:3000/MyApi/favoriRecipes/";
+    return this.http.post(apiUrl,{"recipe":recipe},httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
 }

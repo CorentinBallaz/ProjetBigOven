@@ -4,7 +4,7 @@
       <ion-button routerLink="/home"><ion-icon slot="icon-only" name="arrow-round-back"></ion-icon></ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button routerLink="/"><ion-icon slot="icon-only" name="md-heart"></ion-icon></ion-button>
+      <ion-button (click)="addToFavourites()"><ion-icon slot="icon-only" name="md-heart" ></ion-icon></ion-button>
     </ion-buttons>
     <ion-title>{{recipe.title}}</ion-title>
   </ion-toolbar>

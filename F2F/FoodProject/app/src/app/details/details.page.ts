@@ -10,6 +10,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 
 export class DetailsPage implements OnInit {
+  myRecipe : any;
   recipe : any;
   api : RestService;
   id : string;
@@ -36,6 +37,7 @@ async getRecipe(id:any) {
     await this.api.getRecipe(this.id)
       .subscribe(res => {
         console.log(res);
+        this.myRecipe = res;
         this.recipe = res[0].recipe;
         this.myImage=this.recipe.image_url;
         this.ingredients=[];
@@ -90,6 +92,12 @@ async getRecipe(id:any) {
     });
   }
 
+  addToFavourites() {
+    this.api.addFavoriRecipe(this.res)
+          .subscribe(res => {
+            console.log(res);
+          }); 
+  }
   ngOnInit() {
     this.recipe={};
     this.route.paramMap.subscribe((params : ParamMap)=> {
