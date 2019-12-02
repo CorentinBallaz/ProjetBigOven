@@ -56,4 +56,11 @@ export class RestService {
 
   }
 
+  addIngredient(ingredientName:String): Observable<any> {
+    const apiUrl = "http://localhost:3000/MyApi/cart/";
+    return this.http.post(apiUrl,{"name":ingredientName},httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
 }

@@ -53,6 +53,20 @@ async getRecipe(id:any) {
 
   }
 
+
+  addToCart() {
+    this.ingredients.forEach((item) => {
+      if (item.isChecked == true) {
+
+        this.api.addIngredient(item.name)
+          .subscribe(res => {
+            console.log(res);
+          });
+      }
+    });
+  }
+
+
   checkMaster() {
     setTimeout(()=>{
       this.ingredients.forEach(obj => {
@@ -82,13 +96,7 @@ async getRecipe(id:any) {
     }
   }
 
-  addToCart() {
-    this.ingredients.forEach((item) => {
-      if (item.isChecked == true) {
-        console.log(item.name);
-      }
-    });
-  }
+
 
   ngOnInit() {
     this.recipe={};

@@ -27,7 +27,7 @@ function addIngredient(req, res) {
   const newIngredient = Cart ({
       ingredient: req.body.name
   });
-
+  console.log(req.body);
   newIngredient.save(function(err) {
     if (err) throw err;
     res.json({info: 'Success'});
