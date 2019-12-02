@@ -51,5 +51,5 @@ async getAllRecipes() {
   ngOnInit() {
     this.getAllRecipes();
   }
-
 }
+

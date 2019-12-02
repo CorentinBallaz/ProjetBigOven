@@ -9,7 +9,6 @@ const routes: Routes = [
   { path: 'cart', loadChildren: './cart/cart.module#CartPageModule' },
   { path: 'favoris', loadChildren: './favoris/favoris.module#FavorisPageModule' },
 
-
 ];
 
 @NgModule({

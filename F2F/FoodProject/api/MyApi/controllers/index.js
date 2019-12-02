@@ -21,6 +21,7 @@ function getRecipe(req,res){
     });
 }
 
+<<<<<<< HEAD
 function addIngredient(req, res) {
   const Cart = require('../models/carts');
 
@@ -44,6 +45,8 @@ function getCartList(req,res){
     });
 }
 
+=======
+>>>>>>> c15f03c32d5e63be21b7e98d50ba8bc137dcbfc2
 
 function addFavoriRecipe(req, res) {
   const favoriRecipe = require('../models/favoriRecipes');
