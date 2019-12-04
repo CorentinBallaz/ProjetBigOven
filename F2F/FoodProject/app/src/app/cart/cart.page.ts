@@ -13,7 +13,7 @@ export class CartPage implements OnInit {
   api : RestService;
   id : string;
   myImage: string;
-  ingredients: any;
+  ingredientNames: any;
 
   	constructor(public restapi: RestService, public loadingController: LoadingController, private route: ActivatedRoute) {
 
