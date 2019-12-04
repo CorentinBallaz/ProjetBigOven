@@ -27,7 +27,7 @@ function addIngredient(req, res) {
   const newIngredient = Cart ({
       ingredient: req.body.name
   });
-
+  console.log(req.body);
   newIngredient.save(function(err) {
     if (err) throw err;
     res.json({info: 'Success'});
@@ -45,11 +45,15 @@ function getCartList(req,res){
 }
 
 function addFavoriRecipe(req, res) {
+  console.log("testAV");
   const favoriRecipe = require('../models/favoriRecipes');
+  console.log("test1");
+  console.log(req.body);
 
-  const newFavoriRecipe = FavoriRecipe ({
-      recipe : req.body.recipe
+  const newFavoriRecipe = favoriRecipe ({
+      id : req.body.id
   });
+
 
   newFavoriRecipe.save(function(err) {
     if (err) throw err;

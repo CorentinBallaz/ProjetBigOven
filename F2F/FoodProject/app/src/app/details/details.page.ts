@@ -10,7 +10,6 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 
 export class DetailsPage implements OnInit {
-  myRecipe : any;
   recipe : any;
   api : RestService;
   id : string;
@@ -36,8 +35,7 @@ async getRecipe(id:any) {
 
     await this.api.getRecipe(this.id)
       .subscribe(res => {
-        console.log(res);
-        this.myRecipe = res;
+        console.log(this.id);
         this.recipe = res[0].recipe;
         this.myImage=this.recipe.image_url;
         this.ingredients=[];
@@ -54,6 +52,20 @@ async getRecipe(id:any) {
       });
 
   }
+
+
+  addToCart() {
+    this.ingredients.forEach((item) => {
+      if (item.isChecked == true) {
+
+        this.api.addIngredient(item.name)
+          .subscribe(res => {
+            console.log(res);
+          });
+      }
+    });
+  }
+
 
   checkMaster() {
     setTimeout(()=>{
@@ -84,16 +96,8 @@ async getRecipe(id:any) {
     }
   }
 
-  addToCart() {
-    this.ingredients.forEach((item) => {
-      if (item.isChecked == true) {
-        console.log(item.name);
-      }
-    });
-  }
-
   addToFavourites() {
-    this.api.addFavoriRecipe(this.res)
+    this.api.addFavoriRecipe(this.id)
           .subscribe(res => {
             console.log(res);
           }); 

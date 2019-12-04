@@ -19,9 +19,11 @@ router.get('/MyApi/cart/',(req,res)=>{
 	controller.getCartList(req,res);
 });
 router.post('/MyApi/favoriRecipes/',(req,res)=>{
+	console.log('dans le router');
 	controller.addFavoriRecipe(req,res);
 });
 router.get('/MyApi/favoriRecipes/',(req,res)=>{
+	console.log('dans le router get');
 	controller.getFavoriRecipes(req,res);
 });
 

@@ -56,11 +56,41 @@ export class RestService {
 
   }
 
-   addFavoriRecipe(recipe: any): Observable<any> {
+
+  addFavoriRecipe(id:String): Observable<any> {
+    console.log('test ee');
+    console.log(id);
     const apiUrl = "http://localhost:3000/MyApi/favoriRecipes/";
-    return this.http.post(apiUrl,{"recipe":recipe},httpOptions).pipe(
+    return this.http.post(apiUrl,{"id":id},httpOptions).pipe(
+    map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  addIngredient(ingredientName:String): Observable<any> {
+    const apiUrl = "http://localhost:3000/MyApi/cart/";
+    return this.http.post(apiUrl,{"name":ingredientName},httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }
 
+  getFavoriRecipes(): Observable<any> {
+
+    const apiUrl = "http://localhost:3000/MyApi/favoriRecipes/";
+
+    return this.http.get(apiUrl, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+
+  }
+
+  getCart(): Observable<any> {
+
+    const apiUrl = "http://localhost:3000/MyApi/cart/";
+
+    return this.http.get(apiUrl, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+
+  }
 }
+

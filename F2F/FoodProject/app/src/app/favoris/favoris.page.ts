@@ -23,24 +23,24 @@ export class FavorisPage implements OnInit {
 
   }
 
-async getAllRecipes() {
+async getFavoriRecipes() {
 	const loading = await this.loadingController.create({
       message: 'Loading'
     });
     await loading.present();
 
-    await this.api.getRecipes().subscribe(res => {
-    console.log(res[0]);
+    await this.api.getFavoriRecipes().subscribe(res => {
+    console.log(res);
     this.recipeNames = [];
     for (var j = 0; j < res.length; j++) {
-    	var currentRecipeName = res[j].recipe.title;
-    	var currentImage = res[j].recipe.image_url;
-    	var currentId = res[j]._id;
-    	console.log(currentId);
-    	var currentJsonRecipeName = {name:currentRecipeName, image:currentImage, id:currentId};
-    	this.recipeNames.push(currentJsonRecipeName);
+      this.api.getRecipe(res[j].id).subscribe(res1 => {
+        var currentRecipeName = res1[0].recipe.title;
+        var currentImage = res1[0].recipe.image_url;
+        var currentId = res1[0]._id;
+        var currentJsonRecipeName = {name:currentRecipeName, image:currentImage, id:currentId};
+        this.recipeNames.push(currentJsonRecipeName);
+      });
     }
-    console.log(this.recipeNames);
     loading.dismiss();
     },err => {
     	console.log(err);
@@ -49,7 +49,7 @@ async getAllRecipes() {
 }
 
   ngOnInit() {
-    this.getAllRecipes();
+    this.getFavoriRecipes();
   }
 }
 

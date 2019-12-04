@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const RecipeFavoriSchema = new Schema(
     {
-        recipe : JSON
+        id : String
     });
 
 module.exports = mongoose.model('FavoriRecipe',RecipeFavoriSchema);
