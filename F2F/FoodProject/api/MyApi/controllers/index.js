@@ -36,6 +36,20 @@ function addIngredient(req, res) {
 
 }
 
+function deleteIngredient(req, res) {
+  const Todo = require('../models/carts');
+
+  console.log("delete in progress for ingredient : ",req.body.ingredient);
+
+  Todo.findOneAndRemove(
+        {ingredient : req.body.ingredient}, function(err, todo) {
+    if (err) throw err;
+
+    res.json({info: 'Success'});
+
+  });
+}
+
 function getCartList(req,res){
     const Cart = require('../models/carts');
     Cart.find({},function(err,cart) {
@@ -78,3 +92,4 @@ module.exports.addIngredient=addIngredient;
 module.exports.getCartList=getCartList;
 module.exports.getFavoriRecipes=getFavoriRecipes;
 module.exports.addFavoriRecipe=addFavoriRecipe;
+module.exports.deleteIngredient=deleteIngredient;

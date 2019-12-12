@@ -18,6 +18,9 @@ router.post('/MyApi/cart/',(req,res)=>{
 router.get('/MyApi/cart/',(req,res)=>{
 	controller.getCartList(req,res);
 });
+router.post('/MyApi/cart/delete/',(req,res)=>{
+    controller.deleteIngredient(req,res);
+});
 router.post('/MyApi/favoriRecipes/',(req,res)=>{
 	console.log('dans le router');
 	controller.addFavoriRecipe(req,res);

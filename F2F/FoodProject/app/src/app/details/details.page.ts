@@ -15,6 +15,7 @@ export class DetailsPage implements OnInit {
   id : string;
   myImage: string;
   ingredients: any;
+  ingredientNames : any;
 
   isIndeterminate:boolean;
   masterCheck:boolean;
@@ -53,19 +54,27 @@ async getRecipe(id:any) {
 
   }
 
+  async getCart() {
+    const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
 
-  addToCart() {
-    this.ingredients.forEach((item) => {
-      if (item.isChecked == true) {
-
-        this.api.addIngredient(item.name)
-          .subscribe(res => {
-            console.log(res);
-          });
+      this.ingredientNames = [];
+      
+      await this.api.getCart().subscribe(res => {
+      
+      for (var j = 0; j < res.length; j++) {
+        var currentIngredientName = res[j].ingredient;
+        this.ingredientNames.push(currentIngredientName);
       }
-    });
+      loading.dismiss();
+      },err => {
+        console.log(err);
+        loading.dismiss();
+      });
+      console.log(this.ingredientNames);
   }
-
 
   checkMaster() {
     setTimeout(()=>{
@@ -74,7 +83,7 @@ async getRecipe(id:any) {
       });
     });
   }
- 
+  
   checkEvent() {
     const totalItems = this.ingredients.length;
     let checked = 0;
@@ -96,6 +105,26 @@ async getRecipe(id:any) {
     }
   }
 
+  addToCart() {
+
+      this.ingredients.forEach((item) => {
+      
+      console.log(this.ingredientNames.length);
+      var isInCart = this.ingredientNames.includes(item.name);
+      console.log(isInCart);
+      if ((item.isChecked == true) && (isInCart == false)) {
+        this.ingredientNames.push(item.name);
+        this.api.addIngredient(item.name)
+          .subscribe(res => {
+            console.log(res);
+          });
+      }
+    });
+
+}
+
+  
+
   addToFavourites() {
     this.api.addFavoriRecipe(this.id)
           .subscribe(res => {
@@ -108,6 +137,7 @@ async getRecipe(id:any) {
       this.id=params.get('id');
     });
     this.getRecipe(this.id);
+    this.getCart();
   }
 
 }
