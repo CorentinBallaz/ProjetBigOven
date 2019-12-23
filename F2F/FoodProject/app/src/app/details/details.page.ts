@@ -38,7 +38,8 @@ async getRecipe(id:any) {
       .subscribe(res => {
         console.log(this.id);
         this.recipe = res[0].recipe;
-        this.myImage=this.recipe.image_url;
+        //this.myImage=this.recipe.image_url;
+        this.myImage = "http://www.gfnds.com/2017/en/upload/20170321/20170321203032.jpg";
         this.ingredients=[];
         for (var i = 0; i < this.recipe.ingredients.length; i++) {
           var currentIngredient = this.recipe.ingredients[i];

@@ -34,7 +34,8 @@ async getAllRecipes() {
     this.recipeNames = [];
     for (var j = 0; j < res.length; j++) {
     	var currentRecipeName = res[j].recipe.title;
-    	var currentImage = res[j].recipe.image_url;
+    	//var currentImage = res[j].recipe.image_url;
+      var currentImage = "http://www.gfnds.com/2017/en/upload/20170321/20170321203032.jpg";
     	var currentId = res[j]._id;
     	console.log(currentId);
     	var currentJsonRecipeName = {name:currentRecipeName, image:currentImage, id:currentId};

@@ -87,12 +87,6 @@ async getCart() {
 
   deleteItems() {
     this.ingredientNames = [];
-    /*for (var i=0;i<this.ingredientNames.length;i++) {
-      let index = this.ingredientNames.indexOf(this.ingredientNames[i]);
-      if (index > -1) {
-        this.ingredientNames.splice(index,1);
-      }
-    }*/
   }
 
   ngOnInit() {
