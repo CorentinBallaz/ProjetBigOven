@@ -120,8 +120,7 @@ async getRecipe(id:any) {
           });
       }
     });
-
-}
+  }
 
   
 

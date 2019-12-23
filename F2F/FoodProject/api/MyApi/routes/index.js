@@ -29,5 +29,8 @@ router.get('/MyApi/favoriRecipes/',(req,res)=>{
 	console.log('dans le router get');
 	controller.getFavoriRecipes(req,res);
 });
+router.delete('/MyApi/cart/deleteAll',(req,res)=>{
+    controller.deleteAllIngredient(req,res);
+});
 
 module.exports=router;

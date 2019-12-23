@@ -14,7 +14,6 @@ export class CartPage implements OnInit {
   id : string;
   myImage: string;
   ingredientNames: any;
-  isHide : boolean;
 
   	constructor(public restapi: RestService, public loadingController: LoadingController, private route: ActivatedRoute) {
 
@@ -61,6 +60,24 @@ async getCart() {
 
   }
 
+  async deleteAllIngredients() {
+    const loading = await this.loadingController.create({
+      message: 'Loading'
+    });
+
+    await loading.present();
+    await this.api.deleteAllIngredients()
+      .subscribe(res => {
+        console.log(res);
+        loading.dismiss();    
+      }, err => {
+        console.log(err);
+        loading.dismiss();
+
+    });
+
+  }
+
   deleteItem(item) {
     let index = this.ingredientNames.indexOf(item);
     if (index > -1) {
@@ -68,8 +85,17 @@ async getCart() {
     }
   }
 
+  deleteItems() {
+    this.ingredientNames = [];
+    /*for (var i=0;i<this.ingredientNames.length;i++) {
+      let index = this.ingredientNames.indexOf(this.ingredientNames[i]);
+      if (index > -1) {
+        this.ingredientNames.splice(index,1);
+      }
+    }*/
+  }
+
   ngOnInit() {
-    this.isHide=false;
   	this.getCart();
   }
 

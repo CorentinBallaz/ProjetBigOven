@@ -50,6 +50,16 @@ function deleteIngredient(req, res) {
   });
 }
 
+function deleteAllIngredient(req,res) {
+  const Todo = require('../models/carts');
+  console.log("Deleting all ingredients from cart");
+  Todo.deleteMany(
+    {},function(err,todo) {
+      if (err) throw err;
+      res.json({info : 'Success, all ingredients removed'});
+    });
+}
+
 function getCartList(req,res){
     const Cart = require('../models/carts');
     Cart.find({},function(err,cart) {
@@ -93,3 +103,4 @@ module.exports.getCartList=getCartList;
 module.exports.getFavoriRecipes=getFavoriRecipes;
 module.exports.addFavoriRecipe=addFavoriRecipe;
 module.exports.deleteIngredient=deleteIngredient;
+module.exports.deleteAllIngredient=deleteAllIngredient;
