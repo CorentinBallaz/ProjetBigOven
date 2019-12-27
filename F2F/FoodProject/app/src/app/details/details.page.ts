@@ -15,6 +15,7 @@ export class DetailsPage implements OnInit {
   id : string;
   myImage: string;
   ingredients: any;
+    ingredientNames : any;
 
   isIndeterminate:boolean;
   masterCheck:boolean;
@@ -109,7 +110,7 @@ async getRecipe(id:any) {
 
       this.ingredients.forEach((item) => {
 
-      console.log(this.ingredientNames.length);
+     // console.log(this.ingredientNames.length);
       var isInCart = this.ingredientNames.includes(item.name);
       console.log(isInCart);
       if ((item.isChecked == true) && (isInCart == false)) {
@@ -136,6 +137,7 @@ async getRecipe(id:any) {
       this.id=params.get('id');
     });
     this.getRecipe(this.id);
+    this.getCart();
   }
 
 }

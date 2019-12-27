@@ -46,6 +46,16 @@ export class RestService {
 
   }
 
+    getResearchRecipes(str : any): Observable<any> {
+
+        const apiUrl = 'http://localhost:3000/MyApi/recipes/' + str;
+
+        return this.http.get(apiUrl, httpOptions).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
+
+    }
+
   getRecipe(id: any): Observable<any> {
 
     const apiUrl = "http://localhost:3000/MyApi/recipe/" + id;
