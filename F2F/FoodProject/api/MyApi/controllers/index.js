@@ -189,6 +189,19 @@ function getRecipe(req,res){
     });
 }
 
+function getRecipes(req,res){
+
+    const Recipe = require('../models');
+    Recipe.find({'recipe.title':{$regex :new RegExp(req.params.research), $options: 'i' }}, function(err, recipes) {
+
+        if (err) throw err;
+
+        res.json(recipes);
+        // res.json({"fdsfsf":"sdds"});
+    });
+}
+
 
 module.exports.getAllRecipes=getAllRecipes;
 module.exports.getRecipe = getRecipe;
+module.exports.getRecipes = getRecipes;

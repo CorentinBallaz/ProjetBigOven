@@ -63,4 +63,8 @@ router.get('/MyApi/recipe/:id',(req,res)=>{
     controller.getRecipe(req,res);
 });
 
+
+router.get('/MyApi/recipes/:research',(req,res)=>{
+    controller.getRecipes(req,res);
+});
 module.exports=router;

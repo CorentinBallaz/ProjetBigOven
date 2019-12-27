@@ -25,32 +25,31 @@ export class DetailsPage implements OnInit {
 
   }
 
-async getRecipe(id:any) {
+  async getRecipe(id:any) {
 
 
     const loading = await this.loadingController.create({
       message: 'Loading'
     });
-
     await loading.present();
 
     await this.api.getRecipe(this.id)
-      .subscribe(res => {
-        console.log(res);
-        this.recipe = res[0].recipe;
-        this.myImage=this.recipe.image_url;
-        this.ingredients=[];
-        for (var i = 0; i < this.recipe.ingredients.length; i++) {
-          var currentIngredient = this.recipe.ingredients[i];
-          var currentJson = {name:currentIngredient,isChecked:false};
-          this.ingredients.push(currentJson);
-        }
-        console.log(this.ingredients);
-        loading.dismiss();
-      }, err => {
-        console.log(err);
-        loading.dismiss();
-      });
+        .subscribe(res => {
+          console.log(res);
+          this.recipe = res[0].recipe;
+          this.myImage=this.recipe.image_url;
+          this.ingredients=[];
+          for (var i = 0; i < this.recipe.ingredients.length; i++) {
+            var currentIngredient = this.recipe.ingredients[i];
+            var currentJson = {name:currentIngredient,isChecked:false};
+            this.ingredients.push(currentJson);
+          }
+          console.log(this.ingredients);
+          loading.dismiss();
+        }, err => {
+          console.log(err);
+          loading.dismiss();
+        });
 
   }
 
@@ -61,7 +60,7 @@ async getRecipe(id:any) {
       });
     });
   }
- 
+
   checkEvent() {
     const totalItems = this.ingredients.length;
     let checked = 0;
@@ -93,9 +92,10 @@ async getRecipe(id:any) {
 
   ngOnInit() {
     this.recipe={};
-    this.id="5dadab6aa9ba868a58f72346";
+    this.route.paramMap.subscribe((params : ParamMap)=> {
+      this.id=params.get('id');
+    });
     this.getRecipe(this.id);
   }
 
 }
- 

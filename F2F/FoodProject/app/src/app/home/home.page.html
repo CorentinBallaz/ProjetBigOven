@@ -1,15 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Bienvenue!</ion-title>
+    <ion-title *ngIf = "!searchBarOpened">Bienvenue!</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
+    <ion-searchbar showCancelButton="true" (ionCancel)="searchBarOpened=false"  *ngIf = "searchBarOpened" (ionInput)="getItems($event)" (keyup)="researchActivate=true"></ion-searchbar>
+
     <ion-buttons slot="end">
-      <ion-button routerLink="/"><ion-icon slot="icon-only" name="cart"></ion-icon></ion-button>
+      <ion-button  (click)="searchBarOpened=true"><ion-icon slot="icon-only" name="search" ></ion-icon></ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
+<!-- modifier cette liste suivant si le serach bar est renseigner ou non -->
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let recipeName of recipeNames" routerLink="/details/{{recipeName.id}}">
