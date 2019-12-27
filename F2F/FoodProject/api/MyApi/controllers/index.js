@@ -1,184 +1,16 @@
-// function getTodos(req,res) {
-//     res.send('get Todos');
-// }
-//
-// module.exports.getTodos=getTodos;
-//
-// function getTodo(req,res) {
-//     res.send(' get todo');
-// }
-// module.exports.getTodo=getTodo;
-//
-// function postTodo(req,res){
-//     res.send('post todo');
-// }
-//
-// module.exports.postTodo=postTodo;
-//
-// function putTodo(req,res) {
-//     res.send('update todo');
-// }
-//
-// module.exports.putTodo=putTodo;
-//
-// function deleteTodo(req,res) {
-//     res.send('delete todo');
-// }
-//
-// module.exports.deleteTodo=deleteTodo;
-
-
-// function getAllTodos(req, res) {
-//     const Todo = require('../../../../../../FirstProject/firstTestCode/todo/models');
-//
-//     Todo.find({}, function(err, todos) {
-//
-//         if (err) throw err;
-//
-//         res.json(todos);
-//
-//     });
-//
-// }
-//
-// function getOneTodo(req, res) {
-//     const Todo = require('../../../../../../FirstProject/firstTestCode/todo/models');
-//
-//     Todo.find({_id : req.params.id}, function(err, todo) {
-//
-//         if (err) throw err;
-//
-//         res.json(todo);
-//
-//     });
-//
-// }
-//
-// function createTodo(req, res) {
-//     const Todo = require('../../../../../../FirstProject/firstTestCode/todo/models');
-//
-//     const newTodo = Todo ({
-//         title: req.body.title,
-//             description : req.body.description
-//     });
-//
-//     newTodo.save(function(err) {
-//         if (err) throw err;
-//
-//         res.json({info: 'Success'});
-//
-//     });
-//
-// }
-//
-// function modifyTodo(req, res) {
-//     const Todo = require('../../../../../../FirstProject/firstTestCode/todo/models');
-//
-//     Todo.findOneAndUpdate(
-//         {_id : req.params.id},
-//
-//         { title: req.body.title,
-//             description : req.body.description
-//
-//         }, function(err, todo) {
-//             if (err) throw err;
-//
-//             res.json({info: 'Success'});
-//
-//         });
-//
-// }
-//
-// function deleteTodo(req, res) {
-//     const Todo = require('../../../../../../FirstProject/firstTestCode/todo/models');
-//
-//     Todo.findOneAndRemove(
-//         {_id : req.params.id}, function(err, todo) {
-//             if (err) throw err;
-//
-//             res.json({info: 'Success'});
-//
-//         });
-// }
-//
-// function doneTodo(req,res){
-//     const Todo = require('../../../../../../FirstProject/firstTestCode/todo/models');
-//
-//     Todo.findOneAndUpdate(
-//         {_id : req.params.id},
-//
-//         {done: true
-//
-//         }, function(err, todo) {
-//             if (err) throw err;
-//
-//             res.json({info: 'Success'});
-//
-//         });
-// }
-//
-// function notDoneTodo(req,res){
-//     const Todo = require('../../../../../../FirstProject/firstTestCode/todo/models');
-//
-//     Todo.findOneAndUpdate(
-//         {_id : req.params.id},
-//
-//         {done: false
-//
-//         }, function(err, todo) {
-//             if (err) throw err;
-//
-//             res.json({info: 'Success'});
-//
-//         });
-// }
-//
-// function getTrue(req,res){
-//     const Todo = require('../../../../../../FirstProject/firstTestCode/todo/models');
-//
-//     Todo.find({done:true}, function(err, todos) {
-//
-//         if (err) throw err;
-//
-//         res.json(todos);
-//
-//     });
-// }
-// function getFalse(req,res){
-//     const Todo = require('../../../../../../FirstProject/firstTestCode/todo/models');
-//
-//     Todo.find({done:false}, function(err, todos) {
-//
-//         if (err) throw err;
-//
-//         res.json(todos);
-//
-//     });
-// }
-// module.exports.getFalse = getFalse;
-// module.exports.getTrue = getTrue;
-// module.exports.getAllTodos = getAllTodos;
-// module.exports.getOneTodo = getOneTodo;
-// module.exports.createTodo = createTodo;
-// module.exports.modifyTodo = modifyTodo;
-// module.exports.deleteTodo = deleteTodo;
-// module.exports.doneTodo=doneTodo;
-// module.exports.notDoneTodo=notDoneTodo;
-
-
 function getAllRecipes(req,res){
-    const Recipe = require('../models');
+    const Recipe = require('../models/recipes');
     Recipe.find({}, function(err, recipes) {
 
         if (err) throw err;
-
+        console.log(recipes);
         res.json(recipes);
         // res.json({"fdsfsf":"sdds"});
     });
 }
 
 function getRecipe(req,res){
-    const Recipe = require('../models');
+    const Recipe = require('../models/recipes');
 
     Recipe.find({_id : req.params.id}, function(err, recipe) {
 
@@ -189,9 +21,83 @@ function getRecipe(req,res){
     });
 }
 
+function addIngredient(req, res) {
+  const Cart = require('../models/carts');
+
+  const newIngredient = Cart ({
+      ingredient: req.body.name
+  });
+  console.log(req.body);
+  newIngredient.save(function(err) {
+    if (err) throw err;
+    res.json({info: 'Success'});
+
+  });
+
+}
+
+function deleteIngredient(req, res) {
+  const Todo = require('../models/carts');
+
+  console.log("delete in progress for ingredient : ",req.body.ingredient);
+
+  Todo.findOneAndRemove(
+        {ingredient : req.body.ingredient}, function(err, todo) {
+    if (err) throw err;
+
+    res.json({info: 'Success'});
+
+  });
+}
+
+function deleteAllIngredient(req,res) {
+  const Todo = require('../models/carts');
+  console.log("Deleting all ingredients from cart");
+  Todo.deleteMany(
+    {},function(err,todo) {
+      if (err) throw err;
+      res.json({info : 'Success, all ingredients removed'});
+    });
+}
+
+function getCartList(req,res){
+    const Cart = require('../models/carts');
+    Cart.find({},function(err,cart) {
+        if (err) throw err;
+        res.json(cart);
+    });
+}
+
+function addFavoriRecipe(req, res) {
+  console.log("testAV");
+  const favoriRecipe = require('../models/favoriRecipes');
+  console.log("test1");
+  console.log(req.body);
+
+  const newFavoriRecipe = favoriRecipe ({
+      id : req.body.id
+  });
+
+
+  newFavoriRecipe.save(function(err) {
+    if (err) throw err;
+    res.json({info: 'Success'});
+
+  });
+
+}
+
+function getFavoriRecipes(req,res){
+    const FavoriRecipe = require('../models/favoriRecipes');
+    FavoriRecipe.find({},function(err,favoriRecipes) {
+        if (err) throw err;
+        res.json(favoriRecipes);
+    });
+}
+
 function getRecipes(req,res){
 
-    const Recipe = require('../models');
+    const Recipe = require('../models/recipes');
     Recipe.find({'recipe.title':{$regex :new RegExp(req.params.research), $options: 'i' }}, function(err, recipes) {
 
         if (err) throw err;
@@ -204,4 +110,11 @@ function getRecipes(req,res){
 
 module.exports.getAllRecipes=getAllRecipes;
 module.exports.getRecipe = getRecipe;
+module.exports.addIngredient=addIngredient;
+module.exports.getCartList=getCartList;
+module.exports.getFavoriRecipes=getFavoriRecipes;
+module.exports.addFavoriRecipe=addFavoriRecipe;
+module.exports.deleteIngredient=deleteIngredient;
+module.exports.deleteAllIngredient=deleteAllIngredient;
+
 module.exports.getRecipes = getRecipes;

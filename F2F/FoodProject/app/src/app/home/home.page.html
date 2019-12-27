@@ -7,6 +7,7 @@
     <ion-searchbar showCancelButton="true" (ionCancel)="searchBarOpened=false"  *ngIf = "searchBarOpened" (ionInput)="getItems($event)" (keyup)="researchActivate=true"></ion-searchbar>
 
     <ion-buttons slot="end">
+      <ion-button routerLink="/cart/"><ion-icon slot="icon-only" name="cart"></ion-icon></ion-button>
       <ion-button  (click)="searchBarOpened=true"><ion-icon slot="icon-only" name="search" ></ion-icon></ion-button>
     </ion-buttons>
   </ion-toolbar>

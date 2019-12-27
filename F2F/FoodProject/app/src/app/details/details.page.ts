@@ -25,7 +25,7 @@ export class DetailsPage implements OnInit {
 
   }
 
-  async getRecipe(id:any) {
+async getRecipe(id:any) {
 
 
     const loading = await this.loadingController.create({
@@ -34,23 +34,46 @@ export class DetailsPage implements OnInit {
     await loading.present();
 
     await this.api.getRecipe(this.id)
-        .subscribe(res => {
-          console.log(res);
-          this.recipe = res[0].recipe;
-          this.myImage=this.recipe.image_url;
-          this.ingredients=[];
-          for (var i = 0; i < this.recipe.ingredients.length; i++) {
-            var currentIngredient = this.recipe.ingredients[i];
-            var currentJson = {name:currentIngredient,isChecked:false};
-            this.ingredients.push(currentJson);
-          }
-          console.log(this.ingredients);
-          loading.dismiss();
-        }, err => {
-          console.log(err);
-          loading.dismiss();
-        });
+      .subscribe(res => {
+        console.log(this.id);
+        this.recipe = res[0].recipe;
+        //this.myImage=this.recipe.image_url;
+        this.myImage = "http://www.gfnds.com/2017/en/upload/20170321/20170321203032.jpg";
+        this.ingredients=[];
+        for (var i = 0; i < this.recipe.ingredients.length; i++) {
+          var currentIngredient = this.recipe.ingredients[i];
+          var currentJson = {name:currentIngredient,isChecked:false};
+          this.ingredients.push(currentJson);
+        }
+        console.log(this.ingredients);
+        loading.dismiss();
+      }, err => {
+        console.log(err);
+        loading.dismiss();
+      });
 
+  }
+
+  async getCart() {
+    const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
+
+      this.ingredientNames = [];
+
+      await this.api.getCart().subscribe(res => {
+
+      for (var j = 0; j < res.length; j++) {
+        var currentIngredientName = res[j].ingredient;
+        this.ingredientNames.push(currentIngredientName);
+      }
+      loading.dismiss();
+      },err => {
+        console.log(err);
+        loading.dismiss();
+      });
+      console.log(this.ingredientNames);
   }
 
   checkMaster() {
@@ -60,7 +83,7 @@ export class DetailsPage implements OnInit {
       });
     });
   }
-
+ 
   checkEvent() {
     const totalItems = this.ingredients.length;
     let checked = 0;
@@ -83,13 +106,30 @@ export class DetailsPage implements OnInit {
   }
 
   addToCart() {
-    this.ingredients.forEach((item) => {
-      if (item.isChecked == true) {
-        console.log(item.name);
+
+      this.ingredients.forEach((item) => {
+
+      console.log(this.ingredientNames.length);
+      var isInCart = this.ingredientNames.includes(item.name);
+      console.log(isInCart);
+      if ((item.isChecked == true) && (isInCart == false)) {
+        this.ingredientNames.push(item.name);
+        this.api.addIngredient(item.name)
+          .subscribe(res => {
+            console.log(res);
+          });
       }
     });
   }
 
+
+
+  addToFavourites() {
+    this.api.addFavoriRecipe(this.id)
+          .subscribe(res => {
+            console.log(res);
+          });
+  }
   ngOnInit() {
     this.recipe={};
     this.route.paramMap.subscribe((params : ParamMap)=> {
@@ -99,3 +139,4 @@ export class DetailsPage implements OnInit {
   }
 
 }
+ 
