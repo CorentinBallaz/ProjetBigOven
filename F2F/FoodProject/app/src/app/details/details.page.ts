@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { RestService } from '../rest.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-details',
@@ -20,7 +21,7 @@ export class DetailsPage implements OnInit {
   isIndeterminate:boolean;
   masterCheck:boolean;
 
-  constructor(public restapi: RestService, public loadingController: LoadingController, private route: ActivatedRoute) {
+  constructor(public restapi: RestService, public loadingController: LoadingController, private route: ActivatedRoute, private alertCtrl: AlertController, public navCtrl: NavController) {
 
     this.api = restapi;
 
@@ -123,14 +124,33 @@ async getRecipe(id:any) {
     });
   }
 
-
-
   addToFavourites() {
     this.api.addFavoriRecipe(this.id)
           .subscribe(res => {
             console.log(res);
           });
   }
+
+  showAlert() {
+      let alert = this.alertCtrl.create({       
+        message: "Ingrédient(s) ajouté(s) !",
+        buttons: [
+        {
+          text: 'Rester sur cette page',
+          role: 'cancel'
+        },
+        {
+          text: 'Retourner à l\' acceuil',
+          handler: () => {
+                this.navCtrl.navigateRoot('home');
+              }
+        }]             
+      }).then(alert=>alert.present());
+      //setTimeout(()=>{
+      //    alert.dismiss().then(alert=>alert.dismiss());
+      //}, 50);
+    }
+
   ngOnInit() {
     this.recipe={};
     this.route.paramMap.subscribe((params : ParamMap)=> {
