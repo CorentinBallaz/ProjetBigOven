@@ -12,12 +12,12 @@
 Thumbs.db
 UserInterfaceState.xcuserstate
 $RECYCLE.BIN/
-.gitignore
 *.log
 log.txt
 npm-debug.log*
 
-/FoodDataBase
+FoodDataBase/
+dataProcessing/
 /.idea
 /.ionic
 /.sass-cache
@@ -26,7 +26,8 @@ npm-debug.log*
 /.vscode
 /coverage
 /dist
-/FoodProject/node_modules
+/FoodProject/node_modules/
+/FoodProject/app/node_modules/
 /platforms
 /plugins
 /www
