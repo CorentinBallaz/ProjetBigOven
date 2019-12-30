@@ -15,6 +15,7 @@ export class DetailsPage implements OnInit {
   id : string;
   myImage: string;
   ingredients: any;
+  idFavori: any;
 
   isIndeterminate:boolean;
   masterCheck:boolean;
@@ -74,7 +75,7 @@ async getRecipe(id:any) {
       });
     });
   }
- 
+
   checkEvent() {
     const totalItems = this.ingredients.length;
     let checked = 0;
@@ -97,11 +98,24 @@ async getRecipe(id:any) {
   }
 
   addToFavourites() {
+    let isIn = false;
+    this.api.getFavoriRecipes().subscribe(resFavori => {
+        console.log(resFavori);
+        this.idFavori = [];
+        for (var k = 0; k < resFavori.length; k++) {
+          this.api.getRecipe(resFavori[k].id).subscribe(resFavori2 => {
+            var currentId2 = resFavori2[0]._id;
+            this.idFavori.push(currentId2);
+          });
+          };
+        });
+    console.log(this.idFavori);
     this.api.addFavoriRecipe(this.id)
           .subscribe(res => {
-            console.log(res);
+            //console.log(res);
           }); 
   }
+
   ngOnInit() {
     this.recipe={};
     this.route.paramMap.subscribe((params : ParamMap)=> {

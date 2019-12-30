@@ -68,6 +68,7 @@ function getFavoriRecipes(req,res){
     FavoriRecipe.find({},function(err,favoriRecipes) {
         if (err) throw err;
         res.json(favoriRecipes);
+        console.log("super");
     });
 }
 
