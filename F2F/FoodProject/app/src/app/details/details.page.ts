@@ -21,7 +21,7 @@ export class DetailsPage implements OnInit {
   isIndeterminate:boolean;
   masterCheck:boolean;
   oneBoxChecked:boolean;
-  checked:int;
+  checked:integer;
 
   constructor(public restapi: RestService, public loadingController: LoadingController, private route: ActivatedRoute, private alertCtrl: AlertController, public navCtrl: NavController) {
 
