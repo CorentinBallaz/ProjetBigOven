@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, AlertController } from '@ionic/angular';
 import { RestService } from '../rest.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -15,7 +15,7 @@ export class CartPage implements OnInit {
   myImage: string;
   ingredientNames: any;
 
-  	constructor(public restapi: RestService, public loadingController: LoadingController, private route: ActivatedRoute) {
+  	constructor(public restapi: RestService, public loadingController: LoadingController, private route: ActivatedRoute, private alertCtrl: AlertController) {
 
     this.api = restapi;
 
@@ -89,7 +89,42 @@ async getCart() {
     this.ingredientNames = [];
   }
 
+  showAlert() {
+      let alert = this.alertCtrl.create({ 
+      	header : "Attention !",      
+        message: 'Voulez-vous vraiment vider votre panier ?',
+        buttons: [
+        {
+          text: 'Oui, vider mon panier',
+          cssClass:'secondary',
+          handler: () => {
+                this.deleteItems();
+                this.deleteAllIngredients();
+              }
+        },
+        {
+          text: 'Annuler',
+          role: 'cancel'
+        }
+        ]             
+      }).then(alert=>alert.present());
+    }
+
+    showInfoAlert() {
+      let alert = this.alertCtrl.create({ 
+        header : "Aide",      
+        message: '<div class="justifier">Glissez votre doigt vers la gauche tout en appuyant sur un ingrédient pour le supprimer.</div>',
+        buttons: [
+        {
+          text: "J'ai compris",
+          role: 'cancel'
+        }
+        ]             
+      }).then(alert=>alert.present());
+    }
+
   ngOnInit() {
+  	this.ingredientNames=[];
   	this.getCart();
   }
 

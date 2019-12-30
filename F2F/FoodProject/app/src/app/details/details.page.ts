@@ -16,10 +16,12 @@ export class DetailsPage implements OnInit {
   id : string;
   myImage: string;
   ingredients: any;
-    ingredientNames : any;
+  ingredientNames : any;
 
   isIndeterminate:boolean;
   masterCheck:boolean;
+  oneBoxChecked:boolean;
+  checked:int;
 
   constructor(public restapi: RestService, public loadingController: LoadingController, private route: ActivatedRoute, private alertCtrl: AlertController, public navCtrl: NavController) {
 
@@ -88,22 +90,25 @@ async getRecipe(id:any) {
  
   checkEvent() {
     const totalItems = this.ingredients.length;
-    let checked = 0;
+    this.checked = 0;
     this.ingredients.map(obj => {
-      if (obj.isChecked) checked++;
+      if (obj.isChecked) this.checked++;
     });
-    if (checked > 0 && checked < totalItems) {
+    if (this.checked > 0 && this.checked < totalItems) {
       //If even one item is checked but not all
       this.isIndeterminate = true;
       this.masterCheck = false;
-    } else if (checked == totalItems) {
+      this.oneBoxChecked = true;
+    } else if (this.checked == totalItems) {
       //If all are checked
       this.masterCheck = true;
       this.isIndeterminate = false;
+      this.oneBoxChecked = true;
     } else {
       //If none is checked
       this.isIndeterminate = false;
       this.masterCheck = false;
+      this.oneBoxChecked = false;
     }
   }
 
@@ -113,7 +118,6 @@ async getRecipe(id:any) {
 
      // console.log(this.ingredientNames.length);
       var isInCart = this.ingredientNames.includes(item.name);
-      console.log(isInCart);
       if ((item.isChecked == true) && (isInCart == false)) {
         this.ingredientNames.push(item.name);
         this.api.addIngredient(item.name)
@@ -132,15 +136,23 @@ async getRecipe(id:any) {
   }
 
   showAlert() {
+      let msg;
+      if (this.checked > 1) {
+        msg = "Ingrédients ajoutés !";
+      }
+      else {
+        msg = "Ingrédient ajouté !";
+      }
+
       let alert = this.alertCtrl.create({       
-        message: "Ingrédient(s) ajouté(s) !",
+        message: msg,
         buttons: [
         {
           text: 'Rester sur cette page',
           role: 'cancel'
         },
         {
-          text: 'Retourner à l\' acceuil',
+          text: "Retourner à l'acceuil",
           handler: () => {
                 this.navCtrl.navigateRoot('home');
               }
@@ -149,10 +161,12 @@ async getRecipe(id:any) {
       //setTimeout(()=>{
       //    alert.dismiss().then(alert=>alert.dismiss());
       //}, 50);
+      
     }
 
   ngOnInit() {
     this.recipe={};
+    this.oneBoxChecked = false;
     this.route.paramMap.subscribe((params : ParamMap)=> {
       this.id=params.get('id');
     });

@@ -31,7 +31,7 @@
   </ion-list>
 </ion-content>
 
-<ion-footer translucent="true">
+<ion-footer *ngIf="oneBoxChecked" translucent="true">
   <ion-toolbar>
     <ion-button expand="block" (click)="addToCart();showAlert()">Ajouter au panier</ion-button>
   </ion-toolbar>

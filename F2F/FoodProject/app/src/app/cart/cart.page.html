@@ -4,10 +4,18 @@
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
+     <ion-buttons slot="end">
+      <ion-button (click)="showInfoAlert()">
+        <ion-icon name="md-help-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+	<ion-text class="ion-text-center" vertical-align="middle" *ngIf="ingredientNames.length === 0">
+	  <h1>Votre panier est vide</h1>
+	</ion-text>
   <ion-list *ngFor="let ingredient of ingredientNames">
     <ion-item-sliding #item>
       <ion-item>
@@ -20,8 +28,8 @@
   </ion-list>
 </ion-content>
 
-<ion-footer translucent="true">
+<ion-footer *ngIf="ingredientNames.length > 0" translucent="true">
   <ion-toolbar>
-    <ion-button expand="block" (click)="deleteAllIngredients();deleteItems()">Vider le panier</ion-button>
+    <ion-button expand="block" (click)="showAlert()">Vider le panier</ion-button>
   </ion-toolbar>
 </ion-footer>
