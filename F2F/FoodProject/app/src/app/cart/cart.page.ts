@@ -21,14 +21,17 @@ export class CartPage implements OnInit {
 
   }
 
+ngOnInit() {
+    this.ingredientNames=[];
+    this.getCart();
+  }
+  
 async getCart() {
 	const loading = await this.loadingController.create({
       message: 'Loading'
     });
     await loading.present();
 
-    this.ingredientNames = [];
-    
     await this.api.getCart().subscribe(res => {
     
     for (var j = 0; j < res.length; j++) {
@@ -122,10 +125,5 @@ async getCart() {
         ]             
       }).then(alert=>alert.present());
     }
-
-  ngOnInit() {
-  	this.ingredientNames=[];
-  	this.getCart();
-  }
   
 }

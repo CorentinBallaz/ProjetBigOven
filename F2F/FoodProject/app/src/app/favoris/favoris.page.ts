@@ -53,10 +53,10 @@ async getFavoriRecipes() {
     this.getFavoriRecipes();
   }
 
-  ionViewWillEnter() {
+  /*ionViewWillEnter() {
     this.recipeNames = [];
     this.getFavoriRecipes();
-  }
+  }*/
 
 }
 

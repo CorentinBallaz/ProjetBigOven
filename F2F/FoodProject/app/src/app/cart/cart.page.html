@@ -13,9 +13,7 @@
 </ion-header>
 
 <ion-content>
-	<ion-text class="ion-text-center" vertical-align="middle" *ngIf="ingredientNames.length === 0">
-	  <h1>Votre panier est vide</h1>
-	</ion-text>
+	
   <ion-list *ngFor="let ingredient of ingredientNames">
     <ion-item-sliding #item>
       <ion-item>
@@ -26,6 +24,9 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+  <ion-text class="ion-text-center" vertical-align="middle" *ngIf="ingredientNames.length === 0">
+    <h1>Votre panier est vide</h1>
+  </ion-text>
 </ion-content>
 
 <ion-footer *ngIf="ingredientNames.length > 0" translucent="true">

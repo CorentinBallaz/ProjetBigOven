@@ -243,7 +243,6 @@ async getRecipe(id:any) {
       .subscribe(res => {
         console.log(res);
         loading.dismiss();
-        this.getFavoris();   
       }, err => {
         console.log(err);
         loading.dismiss();
@@ -259,7 +258,6 @@ async getRecipe(id:any) {
           .subscribe(res => {
         console.log(res);
         loading.dismiss();
-        this.getFavoris();   
       }, err => {
         console.log(err);
         loading.dismiss();
