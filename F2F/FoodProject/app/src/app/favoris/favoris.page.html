@@ -4,10 +4,16 @@
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="ngOnInit()"><ion-icon slot="icon-only" name="refresh" ></ion-icon></ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-text class="ion-text-center" vertical-align="middle" *ngIf="recipeNames.length === 0">
+    <h1>Vous n'avez pas de favoris</h1>
+  </ion-text>
   <ion-list>
     <ion-item *ngFor="let recipeName of recipeNames" routerLink="/details/{{recipeName.id}}">
       <ion-img style="max-width: 15%; max-height: 10%; margin:auto; align-items: center;" [src]=recipeName.image></ion-img>

@@ -17,11 +17,13 @@ export class DetailsPage implements OnInit {
   myImage: string;
   ingredients: any;
   ingredientNames : any;
+  favoriRecipesNames : any;
+
 
   isIndeterminate:boolean;
   masterCheck:boolean;
   oneBoxChecked:boolean;
-  checked:integer;
+  checked:number;
 
   constructor(public restapi: RestService, public loadingController: LoadingController, private route: ActivatedRoute, private alertCtrl: AlertController, public navCtrl: NavController) {
 
@@ -49,7 +51,7 @@ async getRecipe(id:any) {
           var currentJson = {name:currentIngredient,isChecked:false};
           this.ingredients.push(currentJson);
         }
-        console.log(this.ingredients);
+        //console.log(this.ingredients);
         loading.dismiss();
       }, err => {
         console.log(err);
@@ -77,7 +79,35 @@ async getRecipe(id:any) {
         console.log(err);
         loading.dismiss();
       });
-      console.log(this.ingredientNames);
+      //console.log(this.ingredientNames);
+  }
+
+
+  async getFavoris() {
+    const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
+
+      this.favoriRecipesNames = [];
+
+      await this.api.getFavoriRecipes().subscribe(res => {
+
+      for (var j = 0; j < res.length; j++) {
+        this.api.getRecipe(res[j].id).subscribe(res1 => {
+          var currentRecipeName = res1[0].recipe.title;
+          var currentImage = "http://www.gfnds.com/2017/en/upload/20170321/20170321203032.jpg";
+          var currentId = res1[0]._id;
+          var currentJsonRecipeName = {name:currentRecipeName, image:currentImage, id:currentId};
+          this.favoriRecipesNames.push(currentJsonRecipeName);
+      });
+      }
+      loading.dismiss();
+      },err => {
+        console.log(err);
+        loading.dismiss();
+      });
+      console.log(this.favoriRecipesNames);
   }
 
   checkMaster() {
@@ -113,7 +143,6 @@ async getRecipe(id:any) {
   }
 
   addToCart() {
-
       this.ingredients.forEach((item) => {
 
      // console.log(this.ingredientNames.length);
@@ -129,11 +158,70 @@ async getRecipe(id:any) {
   }
 
   addToFavourites() {
+    var isInFavoris = false;
+    for (var k = 0; k < this.favoriRecipesNames.length; k++) {
+      if (this.favoriRecipesNames[k].id == this.id){
+        isInFavoris = true;
+      }
+    }
+    console.log(isInFavoris);
+    if (isInFavoris == false){
     this.api.addFavoriRecipe(this.id)
           .subscribe(res => {
             console.log(res);
           });
+      this.ngOnInit();
+      let alert = this.alertCtrl.create({       
+        message: "Ajouté en favoris!",
+        buttons: [
+        {
+          text: 'Rester sur cette page',
+          role: 'cancel'
+        },
+        {
+          text: "Retourner dans mes favoris",
+          handler: () => {
+                this.navCtrl.navigateRoot('favoris');
+              }
+        }]             
+      }).then(alert=>alert.present());
+        }
+      else{
+        this.deleteFavoriRecipe();
+        this.ngOnInit();
+        let alert = this.alertCtrl.create({       
+        message: "Retiré des favoris",
+        buttons: [
+        {
+          text: 'Rester sur cette page',
+          role: 'cancel'
+        },
+        {
+          text: "Retourner dans mes favoris",
+          handler: () => {
+                this.navCtrl.navigateRoot('favoris');
+              }
+        }]             
+      }).then(alert=>alert.present());
+      }
+
   }
+
+  async deleteFavoriRecipe() {
+    const loading = await this.loadingController.create({
+      message: 'Loading'
+    });
+    await loading.present();
+    await this.api.deleteFavoriRecipe(this.id)
+      .subscribe(res => {
+        console.log(res);
+        loading.dismiss();    
+      }, err => {
+        console.log(err);
+        loading.dismiss();
+    });
+  }
+
 
   showAlert() {
       let msg;
@@ -172,6 +260,7 @@ async getRecipe(id:any) {
     });
     this.getRecipe(this.id);
     this.getCart();
+    this.getFavoris();
   }
 
 }

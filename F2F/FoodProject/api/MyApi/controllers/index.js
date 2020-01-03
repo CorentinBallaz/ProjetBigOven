@@ -50,6 +50,18 @@ function deleteIngredient(req, res) {
   });
 }
 
+function deleteFavoriRecipe(req, res) {
+  const Todo = require('../models/favoriRecipes');
+  console.log("delete in progress for this recipe : ",req.body);
+  Todo.findOneAndRemove(
+        {id : req.body.id}, function(err, todo) {
+    if (err) throw err;
+    res.json({info: 'Success'});
+
+  });
+}
+
+
 function deleteAllIngredient(req,res) {
   const Todo = require('../models/carts');
   console.log("Deleting all ingredients from cart");
@@ -69,15 +81,10 @@ function getCartList(req,res){
 }
 
 function addFavoriRecipe(req, res) {
-  console.log("testAV");
   const favoriRecipe = require('../models/favoriRecipes');
-  console.log("test1");
-  console.log(req.body);
-
   const newFavoriRecipe = favoriRecipe ({
       id : req.body.id
   });
-
 
   newFavoriRecipe.save(function(err) {
     if (err) throw err;
@@ -116,5 +123,5 @@ module.exports.getFavoriRecipes=getFavoriRecipes;
 module.exports.addFavoriRecipe=addFavoriRecipe;
 module.exports.deleteIngredient=deleteIngredient;
 module.exports.deleteAllIngredient=deleteAllIngredient;
-
+module.exports.deleteFavoriRecipe=deleteFavoriRecipe;
 module.exports.getRecipes = getRecipes;

@@ -21,12 +21,14 @@ router.get('/MyApi/cart/',(req,res)=>{
 router.post('/MyApi/cart/delete/',(req,res)=>{
     controller.deleteIngredient(req,res);
 });
+router.post('/MyApi/favoriRecipes/delete/',(req,res)=>{
+    controller.deleteFavoriRecipe(req,res);
+});
+
 router.post('/MyApi/favoriRecipes/',(req,res)=>{
-	console.log('dans le router');
 	controller.addFavoriRecipe(req,res);
 });
 router.get('/MyApi/favoriRecipes/',(req,res)=>{
-	console.log('dans le router get');
 	controller.getFavoriRecipes(req,res);
 });
 router.delete('/MyApi/cart/deleteAll',(req,res)=>{

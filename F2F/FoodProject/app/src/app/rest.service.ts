@@ -96,6 +96,19 @@ export class RestService {
     catchError(this.handleError));
   }
 
+  deleteFavoriRecipe(id:any): Observable<any> {
+
+    console.log("I'm in the rest for deleting favori recipe",id);
+
+    const apiUrl = "http://localhost:3000/MyApi/favoriRecipes/delete";
+
+    console.log(apiUrl);
+
+    return this.http.post(apiUrl,{"id":id},httpOptions).pipe(
+    map(this.extractData),
+    catchError(this.handleError));
+  }
+
   deleteAllIngredients(): Observable<any> {
 
     console.log("I'm in the reste for removing all ingredients from cart");
