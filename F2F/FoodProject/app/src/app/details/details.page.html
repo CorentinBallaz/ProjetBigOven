@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
   	<ion-buttons slot="start">
-      <ion-button routerLink="/home"><ion-icon slot="icon-only" name="arrow-round-back"></ion-icon></ion-button>
+      <ion-button (click)="goBackToPreviousPage()"><ion-icon slot="icon-only" name="arrow-round-back"></ion-icon></ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="addToFavourites()"><ion-icon slot="icon-only" name="heart" ></ion-icon></ion-button>

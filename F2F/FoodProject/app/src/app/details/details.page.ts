@@ -3,6 +3,7 @@ import { LoadingController } from '@ionic/angular';
 import { RestService } from '../rest.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-details',
@@ -17,17 +18,22 @@ export class DetailsPage implements OnInit {
   myImage: string;
   ingredients: any;
   ingredientNames : any;
+  favoriRecipesNames : any;
 
   isIndeterminate:boolean;
   masterCheck:boolean;
   oneBoxChecked:boolean;
   checked:any;
 
-  constructor(public restapi: RestService, public loadingController: LoadingController, private route: ActivatedRoute, private alertCtrl: AlertController, public navCtrl: NavController) {
+  constructor(public restapi: RestService, public loadingController: LoadingController, private route: ActivatedRoute, private alertCtrl: AlertController, public navCtrl: NavController, private _location: Location) {
 
     this.api = restapi;
 
   }
+
+goBackToPreviousPage() {
+  this._location.back();
+}
 
 async getRecipe(id:any) {
 
@@ -128,13 +134,6 @@ async getRecipe(id:any) {
     });
   }
 
-  addToFavourites() {
-    this.api.addFavoriRecipe(this.id)
-          .subscribe(res => {
-            console.log(res);
-          });
-  }
-
   showAlert() {
       let msg;
       if (this.checked > 1) {
@@ -164,6 +163,109 @@ async getRecipe(id:any) {
       
     }
 
+    async getFavoris() {
+    const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
+
+      this.favoriRecipesNames = [];
+
+      await this.api.getFavoriRecipes().subscribe(res => {
+
+      for (var j = 0; j < res.length; j++) {
+        this.api.getRecipe(res[j].id).subscribe(res1 => {
+          var currentRecipeName = res1[0].recipe.title;
+          var currentImage = "http://www.gfnds.com/2017/en/upload/20170321/20170321203032.jpg";
+          var currentId = res1[0]._id;
+          var currentJsonRecipeName = {name:currentRecipeName, image:currentImage, id:currentId};
+          this.favoriRecipesNames.push(currentJsonRecipeName);
+      });
+      }
+      loading.dismiss();
+      },err => {
+        console.log(err);
+        loading.dismiss();
+      });
+      console.log(this.favoriRecipesNames);
+  }
+
+  addToFavourites() {
+    var isInFavoris = false;
+    for (var k = 0; k < this.favoriRecipesNames.length; k++) {
+      if (this.favoriRecipesNames[k].id == this.id){
+        isInFavoris = true;
+      }
+    }
+    console.log(isInFavoris);
+    if (isInFavoris == false){
+      this.addFavoriRecipe();
+      let alert = this.alertCtrl.create({       
+        message: "Ajouté en favoris!",
+        buttons: [
+        {
+          text: 'Rester sur cette page',
+          role: 'cancel'
+        },
+        {
+          text: "Retourner dans mes favoris",
+          handler: () => {
+                this.navCtrl.navigateRoot('favoris');
+              }
+        }]             
+      }).then(alert=>alert.present());
+        }
+    else{
+        this.deleteFavoriRecipe();
+        let alert = this.alertCtrl.create({       
+        message: "Retiré des favoris",
+        buttons: [
+        {
+          text: 'Rester sur cette page',
+          role: 'cancel'
+        },
+        {
+          text: "Retourner dans mes favoris",
+          handler: () => {
+                this.navCtrl.navigateRoot('favoris');
+              }
+        }]             
+      }).then(alert=>alert.present());
+      }
+  }
+
+  async deleteFavoriRecipe() {
+    const loading = await this.loadingController.create({
+      message: 'Loading'
+    });
+    await loading.present();
+    await this.api.deleteFavoriRecipe(this.id)
+      .subscribe(res => {
+        console.log(res);
+        loading.dismiss();
+        this.getFavoris();   
+      }, err => {
+        console.log(err);
+        loading.dismiss();
+    });
+  }
+
+  async addFavoriRecipe() {
+    const loading = await this.loadingController.create({
+      message: 'Loading'
+    });
+    await loading.present();
+    await this.api.addFavoriRecipe(this.id)
+          .subscribe(res => {
+        console.log(res);
+        loading.dismiss();
+        this.getFavoris();   
+      }, err => {
+        console.log(err);
+        loading.dismiss();
+    });
+  }
+
   ngOnInit() {
     this.recipe={};
     this.oneBoxChecked = false;
@@ -172,6 +274,7 @@ async getRecipe(id:any) {
     });
     this.getRecipe(this.id);
     this.getCart();
+    this.getFavoris();
   }
 
 }

@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-text class="ion-text-center" vertical-align="middle" *ngIf="recipeNames.length === 0">
+    <h1>Vous n'avez pas de favoris</h1>
+  </ion-text>
   <ion-list>
     <ion-item *ngFor="let recipeName of recipeNames" routerLink="/details/{{recipeName.id}}">
       <ion-img style="max-width: 15%; max-height: 10%; margin:auto; align-items: center;" [src]=recipeName.image></ion-img>
@@ -15,4 +18,3 @@
     </ion-item>
   </ion-list>
 </ion-content>
-

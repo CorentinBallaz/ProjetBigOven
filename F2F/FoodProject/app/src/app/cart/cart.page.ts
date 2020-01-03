@@ -127,5 +127,5 @@ async getCart() {
   	this.ingredientNames=[];
   	this.getCart();
   }
-
+  
 }

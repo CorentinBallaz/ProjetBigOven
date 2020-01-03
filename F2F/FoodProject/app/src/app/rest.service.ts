@@ -66,16 +66,6 @@ export class RestService {
 
   }
 
-
-  addFavoriRecipe(id:String): Observable<any> {
-    console.log('test ee');
-    console.log(id);
-    const apiUrl = "http://localhost:3000/MyApi/favoriRecipes/";
-    return this.http.post(apiUrl,{"id":id},httpOptions).pipe(
-    map(this.extractData),
-      catchError(this.handleError));
-  }
-
   addIngredient(ingredientName:String): Observable<any> {
     const apiUrl = "http://localhost:3000/MyApi/cart/";
     return this.http.post(apiUrl,{"name":ingredientName},httpOptions).pipe(
@@ -106,6 +96,16 @@ export class RestService {
 
   }
 
+  getCart(): Observable<any> {
+
+    const apiUrl = "http://localhost:3000/MyApi/cart/";
+
+    return this.http.get(apiUrl, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+
+  }
+
   getFavoriRecipes(): Observable<any> {
 
     const apiUrl = "http://localhost:3000/MyApi/favoriRecipes/";
@@ -116,14 +116,26 @@ export class RestService {
 
   }
 
-  getCart(): Observable<any> {
-
-    const apiUrl = "http://localhost:3000/MyApi/cart/";
-
-    return this.http.get(apiUrl, httpOptions).pipe(
-      map(this.extractData),
+  addFavoriRecipe(id:String): Observable<any> {
+    console.log('test ee');
+    console.log(id);
+    const apiUrl = "http://localhost:3000/MyApi/favoriRecipes/";
+    return this.http.post(apiUrl,{"id":id},httpOptions).pipe(
+    map(this.extractData),
       catchError(this.handleError));
+  }
+  
+  deleteFavoriRecipe(id:any): Observable<any> {
 
+    console.log("I'm in the rest for deleting favori recipe",id);
+
+    const apiUrl = "http://localhost:3000/MyApi/favoriRecipes/delete";
+
+    console.log(apiUrl);
+
+    return this.http.post(apiUrl,{"id":id},httpOptions).pipe(
+    map(this.extractData),
+    catchError(this.handleError));
   }
 
   
