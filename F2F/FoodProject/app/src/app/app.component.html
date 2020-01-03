@@ -1,4 +1,4 @@
-<ion-app>
+<!--<ion-app>
   <ion-menu contentId="content1" side="start">
     <ion-header>
       <ion-toolbar>
@@ -14,4 +14,31 @@
 </ion-content>
   </ion-menu>
   <ion-router-outlet id="content1" main></ion-router-outlet>
+</ion-app>-->
+
+<ion-app>
+  <ion-split-pane contentId="content">
+    <ion-menu contentId="content">
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-title>Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item [routerLink]="['/home']" routerDirection="root"> Acceuil
+            </ion-item>
+            <ion-item [routerLink]="['/favoris']" routerDirection="root"> Favoris
+            </ion-item>
+            <ion-item [routerLink]="['/cart']" routerDirection="root"> Panier
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
+    <ion-router-outlet id="content" main></ion-router-outlet>
+  </ion-split-pane>
 </ion-app>
