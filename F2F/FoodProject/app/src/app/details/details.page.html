@@ -2,7 +2,7 @@
   <ion-toolbar>
   	<ion-buttons slot="start">
       <!--<ion-button (click)="goBackToPreviousPage()"><ion-icon slot="icon-only" name="arrow-round-back"></ion-icon></ion-button>-->
-      <ion-back-button defaultHref="/" text="Acceuil"></ion-back-button>
+      <ion-back-button defaultHref="/" routerLink="/home" text="Acceuil" routerDirection="back"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="addToFavourites()">
@@ -17,7 +17,7 @@
 
 <ion-content>
   <ion-item lines="none">
-    <ion-label class="ion-text-wrap">{{recipe.title}}</ion-label>
+    <ion-label class="ion-text-wrap ion-text-center"><strong><font size="+2">{{recipe.title}}</font></strong></ion-label>
   </ion-item>
   <ion-img style="max-width: 40%; height: auto; margin:auto;" [src]="myImage"></ion-img>
   <ion-list>

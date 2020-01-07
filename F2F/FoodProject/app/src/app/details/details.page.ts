@@ -114,18 +114,32 @@ async getRecipe(id:any) {
   }
 
   addToCart() {
-
       this.ingredients.forEach((item) => {
 
      // console.log(this.ingredientNames.length);
       var isInCart = this.ingredientNames.includes(item.name);
       if ((item.isChecked == true) && (isInCart == false)) {
         this.ingredientNames.push(item.name);
-        this.api.addIngredient(item.name)
+        this._addToCart(item.name);
+      }
+    });
+  }
+
+  async _addToCart(name:any) {
+
+    await this.api.addIngredient(name)
           .subscribe(res => {
             console.log(res);
           });
-      }
+  }
+
+  async deleteFavoriRecipe() {
+    await this.api.deleteFavoriRecipe(this.id)
+      .subscribe(res => {
+        console.log(res);
+        this.isInFavoris = false;
+      }, err => {
+        console.log(err);
     });
   }
 
@@ -199,9 +213,9 @@ async getRecipe(id:any) {
           role: 'cancel'
         },
         {
-          text: "Retourner dans mes favoris",
+          text: "Retourner à l'acceuil",
           handler: () => {
-                this.navCtrl.navigateRoot('favoris');
+                this.navCtrl.navigateRoot('home');
               }
         }]             
       }).then(alert=>alert.present());
@@ -217,9 +231,9 @@ async getRecipe(id:any) {
           role: 'cancel'
         },
         {
-          text: "Retourner dans mes favoris",
+          text: "Retourner à l'acceuil",
           handler: () => {
-                this.navCtrl.navigateRoot('favoris');
+                this.navCtrl.navigateRoot('home');
               }
         }]             
       }).then(alert=>alert.present());
