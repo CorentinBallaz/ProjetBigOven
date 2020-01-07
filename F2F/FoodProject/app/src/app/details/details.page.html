@@ -5,15 +5,19 @@
       <ion-back-button defaultHref="/" text="Acceuil"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="addToFavourites()"><ion-icon slot="icon-only" name="heart" ></ion-icon></ion-button>
+      <ion-button (click)="addToFavourites()">
+          <ion-icon slot="icon-only" *ngIf="isInFavoris" name="heart"></ion-icon>
+          <ion-icon slot="icon-only" *ngIf="!isInFavoris" name="heart-empty"></ion-icon>
+      </ion-button>
     </ion-buttons>
+
     <ion-title>Détails</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item text-center lines="none">
-    <ion-label>{{recipe.title}}</ion-label>
+  <ion-item lines="none">
+    <ion-label class="ion-text-wrap">{{recipe.title}}</ion-label>
   </ion-item>
   <ion-img style="max-width: 40%; height: auto; margin:auto;" [src]="myImage"></ion-img>
   <ion-list>
@@ -27,7 +31,7 @@
   </ion-list>
   <ion-list>
     <ion-item *ngFor="let ingredient of ingredients">
-      <ion-label>{{ingredient.name}}</ion-label>
+      <ion-label class="ion-text-wrap">{{ingredient.name}}</ion-label>
       <ion-checkbox slot="start" 
       [(ngModel)]="ingredient.isChecked" 
       (ionChange)="checkEvent()"></ion-checkbox>

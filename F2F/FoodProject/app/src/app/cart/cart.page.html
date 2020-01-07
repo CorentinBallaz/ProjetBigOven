@@ -1,18 +1,3 @@
-<!--<ion-header>
-  <ion-toolbar>
-    <ion-title>Votre panier</ion-title>
-    <ion-menu-button autoHide="false"></ion-menu-button>
-    <ion-buttons slot="start">
-      <ion-button routerLink="/home"><ion-icon slot="icon-only" name="arrow-round-back"></ion-icon></ion-button>
-    </ion-buttons>
-     <ion-buttons slot="end">
-      <ion-button (click)="showInfoAlert()">
-        <ion-icon name="md-help-circle"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-header>
   <ion-toolbar>
     <ion-title>Mon panier</ion-title>
@@ -33,7 +18,7 @@
   <ion-list *ngFor="let ingredient of ingredientNames">
     <ion-item-sliding #item>
       <ion-item>
-        <ion-label>{{ingredient}}</ion-label>
+        <ion-label class="ion-text-wrap">{{ingredient}}</ion-label>
       </ion-item>
       <ion-item-options side="end" (ionSwipe)="deleteIngredient(ingredient);deleteItem(ingredient)">
         <!-- <ion-button color="danger" (click)="deleteIngredient(ingredient);deleteItem(ingredient)">Delete</ion-button> -->

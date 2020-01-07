@@ -35,7 +35,7 @@ async getFavoriRecipes() {
     for (var j = 0; j < res.length; j++) {
       this.api.getRecipe(res[j].id).subscribe(res1 => {
         var currentRecipeName = res1[0].recipe.title;
-        var currentImage = "http://www.gfnds.com/2017/en/upload/20170321/20170321203032.jpg";
+        var currentImage = "https://img.icons8.com/bubbles/2x/food.png";
         var currentId = res1[0]._id;
         var currentJsonRecipeName = {name:currentRecipeName, image:currentImage, id:currentId};
         this.recipeNames.push(currentJsonRecipeName);
@@ -53,10 +53,10 @@ async getFavoriRecipes() {
     this.getFavoriRecipes();
   }
 
-  /*ionViewWillEnter() {
+  ionViewDidLoad() {
     this.recipeNames = [];
     this.getFavoriRecipes();
-  }*/
+  }
 
 }
 
