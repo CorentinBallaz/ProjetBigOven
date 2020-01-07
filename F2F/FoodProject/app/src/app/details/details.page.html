@@ -1,16 +1,20 @@
 <ion-header>
   <ion-toolbar>
   	<ion-buttons slot="start">
-      <ion-button (click)="goBackToPreviousPage()"><ion-icon slot="icon-only" name="arrow-round-back"></ion-icon></ion-button>
+      <!--<ion-button (click)="goBackToPreviousPage()"><ion-icon slot="icon-only" name="arrow-round-back"></ion-icon></ion-button>-->
+      <ion-back-button defaultHref="/" text="Acceuil"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="addToFavourites()"><ion-icon slot="icon-only" name="heart" ></ion-icon></ion-button>
     </ion-buttons>
-    <ion-title>{{recipe.title}}</ion-title>
+    <ion-title>Détails</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-item text-center lines="none">
+    <ion-label>{{recipe.title}}</ion-label>
+  </ion-item>
   <ion-img style="max-width: 40%; height: auto; margin:auto;" [src]="myImage"></ion-img>
   <ion-list>
     <ion-item>

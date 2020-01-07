@@ -31,10 +31,6 @@ export class DetailsPage implements OnInit {
 
   }
 
-goBackToPreviousPage() {
-  this._location.back();
-}
-
 async getRecipe(id:any) {
 
 
@@ -48,7 +44,7 @@ async getRecipe(id:any) {
         console.log(this.id);
         this.recipe = res[0].recipe;
         //this.myImage=this.recipe.image_url;
-        this.myImage = "http://www.gfnds.com/2017/en/upload/20170321/20170321203032.jpg";
+        this.myImage = "https://www.cocacola.fr/content/dam/GO/CokeZone/Common/global/logo/logodesktop/coca-cola-logo-260x260.png";
         this.ingredients=[];
         for (var i = 0; i < this.recipe.ingredients.length; i++) {
           var currentIngredient = this.recipe.ingredients[i];
