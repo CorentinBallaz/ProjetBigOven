@@ -1,9 +1,38 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>apropos</ion-title>
+  	<ion-buttons slot="start">
+      <ion-button (click)="goBackToPreviousPage()"><ion-icon slot="icon-only" name="arrow-round-back"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>A propos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+	<div class="content">
+  <div class="content__container">
+    <p class="content__container__text">
+      Merci
+    </p>
+    
+    <ul class="content__container__list">
+      <li class="content__container__list__item">Tanguy</li>
+      <li class="content__container__list__item">Bubu</li>
+      <li class="content__container__list__item">Coco</li>
+      <li class="content__container__list__item">IDU !!!</li>
+    </ul>
+  </div>
+</div>
+<div>
+	<p class="p1">Ce projet a été réalisé dans le cadre du cours INFO734 à Polytech Annecy-Chambéry.
+	Le projet s'est basé sur l'API "food2fork" qui a malheureusement fermée ses portes.
+	Pour plus d'informations, contactez directement un des membres fondateurs : tanguy.mariton@etu.univ-smb.fr
+	william.burillon@etu.univ-smb.fr
+	corentin.ballaz@etu.univ-smb.fr</p>
+</div>
 </ion-content>
+
+<ion-footer translucent="false">
+	<ion-toolbar>
+	<p align="center">&copy; 2020 www.polytech.univ-smb.fr<p>
+	</p></ion-toolbar>
+</ion-footer>
