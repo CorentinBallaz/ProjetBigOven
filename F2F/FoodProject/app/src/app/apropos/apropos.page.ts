@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-apropos',
@@ -8,11 +7,7 @@ import {Location} from '@angular/common';
 })
 export class AproposPage implements OnInit {
 
-  constructor(private _location: Location) {}
-
-goBackToPreviousPage() {
-  this._location.back();
-}
+  constructor() {}
 
   ngOnInit() {}
 

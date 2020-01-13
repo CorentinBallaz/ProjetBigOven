@@ -133,16 +133,6 @@ async getRecipe(id:any) {
           });
   }
 
-  async deleteFavoriRecipe() {
-    await this.api.deleteFavoriRecipe(this.id)
-      .subscribe(res => {
-        console.log(res);
-        this.isInFavoris = false;
-      }, err => {
-        console.log(err);
-    });
-  }
-
   showAlert() {
       let msg;
       if (this.checked > 1) {
